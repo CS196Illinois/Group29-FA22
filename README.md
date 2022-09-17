@@ -6,3 +6,5 @@ Group Name: TEAM_NAME
 Team Members: mreeve2, eliselk2, shsing2, taigec2, sz61, seanvh2
 
 Project Manager: yse2
+
+Project Description
