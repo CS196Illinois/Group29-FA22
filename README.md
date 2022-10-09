@@ -1,5 +1,5 @@
 # Group 29
-Group Name: TEAM_NAME
+Group Name: Recipe App
 
 [MVP Link](https://docs.google.com/document/d/1SIIJ_-Z73mEwXn1yDJjVTQE1ZwGRgX2N5WFraz6MMOg/edit?usp=sharing)
 
