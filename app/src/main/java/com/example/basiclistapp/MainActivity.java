@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
 
                 return false;
+                // testing comment
             }
         });
     }
