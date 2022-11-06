@@ -1,14 +1,19 @@
 package com.example.basiclistapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
     private ListView listView;
-
+    BottomNavigationView nav;
 
     public static ArrayList<Recipe> getRecipeList() {
         return recipeList;
@@ -28,7 +33,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("My Recipes");
+        getSupportActionBar().setTitle("Search Recipes");
+
+        nav = findViewById(R.id.nav);
+        nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()) {
+                    case R.id.add:
+                        Intent intent1 = new Intent(getApplicationContext(), RecipeInput.class);
+                        startActivity(intent1);
+
+                    default:
+                }
+
+                return true;
+            }
+        });
 
         initSearchWidgets();
         setUpData();

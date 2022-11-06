@@ -89,10 +89,20 @@
         android:layout_below="@+id/tagsInput"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="155dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginEnd="150dp"
         android:text="Submit"
         app:iconTint="#FFFFFF" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/nav2"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu_bar"/>
 
 </RelativeLayout>
