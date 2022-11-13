@@ -17,7 +17,7 @@ public class DetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Recipe View");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSelectedShape();
+        getSelectedRecipe();
         setValues();
 
     }
@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
-    public void getSelectedShape() {
+    public void getSelectedRecipe() {
         Intent previousIntent = getIntent();
         String parsedStringID = previousIntent.getStringExtra("id");
         selectedRecipe = MainActivity.getRecipeList().get(Integer.valueOf(parsedStringID));

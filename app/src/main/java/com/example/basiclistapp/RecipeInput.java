@@ -62,7 +62,12 @@ public class RecipeInput extends AppCompatActivity {
                 ingredients = ingredientsInput.getText().toString().trim().split("\n");
                 tags = tagsInput.getText().toString().trim().split(",");
                 directions = directionsInput.getText().toString().trim().split("\n");
-                Recipe addedRecipe = new Recipe()
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("ingredients", ingredients);
+                intent.putExtra("tags", tags);
+                intent.putExtra("directions", directions);
+                startActivity(intent);
             }
         });
 
