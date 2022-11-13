@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()) {
                     case R.id.add:
                         Intent intent1 = new Intent(getApplicationContext(), RecipeInput.class);
+                        System.out.println("Here in the wrong area");
                         startActivity(intent1);
 
                     default:
@@ -52,8 +53,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setUpData(
+                    extras.getString("name"),
+                    extras.getStringArray("ingredients"),
+                    extras.getStringArray("tags"),
+                    extras.getStringArray("directions")
+            );
+        }
         initSearchWidgets();
-        setUpData();
         setUpList();
         setUpOnclickListener();
 
@@ -86,25 +95,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setUpData() {
-        Recipe chicken_tikka_masala = new Recipe("0", "Chicken Tikka Masala");
-        recipeList.add(chicken_tikka_masala);
-        chicken_tikka_masala.addTag("Indian");
-        chicken_tikka_masala.addTag("Spicy");
-
-        Recipe clam_chowder = new Recipe("1", "Clam Chowder");
-        recipeList.add(clam_chowder);
-
-        Recipe split_pea_soup = new Recipe("2", "Split Pea Soup");
-        recipeList.add(split_pea_soup);
-
-        Recipe hamburgers = new Recipe("3", "Hamburgers");
-        recipeList.add(hamburgers);
-
-        Recipe german_chocolate_cake = new Recipe("4", "German Chocolate Cake");
-        recipeList.add(german_chocolate_cake);
-        german_chocolate_cake.addTag("Dessert");
-        german_chocolate_cake.addTag("Cake");
+    public void setUpData(String name, String[] ingredients, String[] tags, String[] directions) {
+        Recipe newRecipe = new Recipe(name, ingredients, tags, directions);
+        recipeList.add(newRecipe);
     }
 
     public void setUpOnclickListener() {
@@ -114,8 +107,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Recipe selectedRecipe = (Recipe) (listView.getItemAtPosition(position));
+                System.out.println(selectedRecipe.getName());
                 Intent showDetail = new Intent(getApplicationContext(), DetailActivity.class);
                 showDetail.putExtra("id", selectedRecipe.getId());
+                System.out.println("Here");
                 startActivity(showDetail);
             }
         });
