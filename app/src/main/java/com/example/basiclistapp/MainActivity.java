@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Search Recipes");
 
@@ -40,13 +39,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()) {
-                    case R.id.add:
-                        Intent intent1 = new Intent(getApplicationContext(), RecipeInput.class);
-                        System.out.println("Here in the wrong area");
-                        startActivity(intent1);
-
-                    default:
+                if (item.getItemId() == R.id.add) {
+                    Intent goToAdd = new Intent(getApplicationContext(), RecipeInput.class);
+                    startActivity(goToAdd);
                 }
 
                 return true;
@@ -65,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         initSearchWidgets();
         setUpList();
         setUpOnclickListener();
+        super.onCreate(savedInstanceState);
 
     }
 
