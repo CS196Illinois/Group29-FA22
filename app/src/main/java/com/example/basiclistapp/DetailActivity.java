@@ -2,14 +2,20 @@ package com.example.basiclistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
 
     Recipe selectedRecipe;
+    Button favoriteButton;
+    String parsedStringID;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +25,21 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSelectedRecipe();
         setValues();
+
+        favoriteButton = (Button) findViewById(R.id.favoriteButton);
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("HERE IS THE BUTTON CLICK");
+                Intent intent = new Intent(getApplicationContext(), Favorites.class);
+                intent.putExtra("name", selectedRecipe.getName());
+                intent.putExtra("ingredients", selectedRecipe.getIngredientsArray());
+                intent.putExtra("tags", selectedRecipe.getTagsArray());
+                intent.putExtra("directions", selectedRecipe.getDirectionsArray());
+                System.out.println(selectedRecipe.getName());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -30,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public void getSelectedRecipe() {
         Intent previousIntent = getIntent();
-        String parsedStringID = previousIntent.getStringExtra("id");
+        parsedStringID = previousIntent.getStringExtra("id");
         selectedRecipe = MainActivity.getRecipeList().get(Integer.valueOf(parsedStringID));
     }
 

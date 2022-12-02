@@ -28,6 +28,36 @@ public class Recipe {
         return name;
     }
 
+    public ArrayList<String> getIngredients() { return ingredients; }
+
+    public String[] getIngredientsArray() {
+        String[] ret = new String[ingredients.size()];
+        for (int i = 0; i < ingredients.size(); i++) {
+            ret[i] = ingredients.get(i);
+        }
+        return ret;
+    }
+
+    public ArrayList<String> getDirections() {
+        return directions;
+    }
+
+    public String[] getDirectionsArray() {
+        String[] ret = new String[directions.size()];
+        for (int i = 0; i < directions.size(); i++) {
+            ret[i] = directions.get(i);
+        }
+        return ret;
+    }
+
+    public String[] getTagsArray() {
+        String[] ret = new String[tags.size()];
+        for (int i = 0; i < tags.size(); i++) {
+            ret[i] = tags.get(i);
+        }
+        return ret;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

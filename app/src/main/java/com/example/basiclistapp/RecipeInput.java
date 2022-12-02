@@ -38,6 +38,10 @@ public class RecipeInput extends AppCompatActivity {
                     Intent goToMain = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(goToMain);
                 }
+                else if (item.getItemId() == R.id.favorites) {
+                    Intent goToFavorites = new Intent(getApplicationContext(), Favorites.class);
+                    startActivity(goToFavorites);
+                }
 
                 return true;
             }

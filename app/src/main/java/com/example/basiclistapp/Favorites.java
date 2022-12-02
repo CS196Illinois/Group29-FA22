@@ -3,8 +3,8 @@ package com.example.basiclistapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,23 +16,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class Favorites extends AppCompatActivity {
 
-    private static ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-    private ListView listView;
+    private static ArrayList<Recipe> favoriteList = new ArrayList<Recipe>();
+    private ListView favoriteListView;
     BottomNavigationView nav;
 
     public static ArrayList<Recipe> getRecipeList() {
-        return recipeList;
+        return favoriteList;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Search Recipes");
+        super.onCreate(savedInstanceState);
+        System.out.println("HERE IN THE FAVORITES CONSTRUCTOR");
+
+        setContentView(R.layout.activity_favorites);
+        getSupportActionBar().setTitle("Favorite Recipes");
+
+        System.out.println("HERE IN THE FAVORITES CONSTRUCTOR FURTHER DOWN");
+
 
         nav = findViewById(R.id.nav);
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -43,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent goToAdd = new Intent(getApplicationContext(), RecipeInput.class);
                     startActivity(goToAdd);
                 }
-                else if (item.getItemId() == R.id.favorites) {
-                    Intent goToFavorites = new Intent(getApplicationContext(), Favorites.class);
-                    startActivity(goToFavorites);
+                else if (item.getItemId() == R.id.search) {
+                    Intent goToMain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(goToMain);
                 }
 
                 return true;
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            System.out.println("HERE");
             setUpData(
                     extras.getString("name"),
                     extras.getStringArray("ingredients"),
@@ -63,13 +69,10 @@ public class MainActivity extends AppCompatActivity {
         }
         initSearchWidgets();
         setUpList();
-        setUpOnclickListener();
-        super.onCreate(savedInstanceState);
-
     }
 
     private void initSearchWidgets() {
-        SearchView searchView = (SearchView) findViewById(R.id.recipeListSearchView);
+        SearchView searchView = (SearchView) findViewById(R.id.favoritesListSearchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -81,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
 
                 ArrayList<Recipe> filteredRecipes = new ArrayList<Recipe>();
-                for (Recipe r: recipeList) {
+                for (Recipe r: favoriteList) {
                     if (r.getName().toLowerCase().contains(s.toLowerCase()) || r.getTags().toLowerCase().contains(s.toLowerCase())) {
-                         filteredRecipes.add(r);
+                        filteredRecipes.add(r);
                     }
                 }
 
                 RecipeAdapter adapter = new RecipeAdapter(getApplicationContext(), 0, filteredRecipes);
-                listView.setAdapter(adapter);
+                favoriteListView.setAdapter(adapter);
 
                 return false;
             }
@@ -97,29 +100,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUpData(String name, String[] ingredients, String[] tags, String[] directions) {
         Recipe newRecipe = new Recipe(name, ingredients, tags, directions);
-        recipeList.add(newRecipe);
+        System.out.println("HERE SETTING UP DATA");
+        favoriteList.add(newRecipe);
     }
 
-    public void setUpOnclickListener() {
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                Recipe selectedRecipe = (Recipe) (listView.getItemAtPosition(position));
-                Intent showDetail = new Intent(getApplicationContext(), DetailActivity.class);
-                showDetail.putExtra("id", selectedRecipe.getId());
-                startActivity(showDetail);
-            }
-        });
-
-    }
 
     public void setUpList() {
-        listView = (ListView) findViewById(R.id.recipesListView);
+        favoriteListView = (ListView) findViewById(R.id.favoritesListView);
 
-        RecipeAdapter adapter = new RecipeAdapter(getApplicationContext(), 0, recipeList);
-        listView.setAdapter(adapter);
+        RecipeAdapter adapter = new RecipeAdapter(getApplicationContext(), 0, favoriteList);
+        favoriteListView.setAdapter(adapter);
     }
-
 }
