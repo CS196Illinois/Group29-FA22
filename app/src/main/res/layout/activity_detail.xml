@@ -33,4 +33,35 @@
         android:text="Tags: Example, Recipe, Tags"
         android:textAlignment="center" />
 
+    <Button
+        android:id="@+id/favoriteButton"
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/recipeTags"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:visibility="visible"
+        app:icon="@drawable/ic_baseline_favorite_24"
+        app:iconPadding="0dp" />
+
+    <TextView
+        android:id="@+id/ingredientsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recipeTags"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toStartOf="@+id/favoriteButton"
+        android:text="       Ingredients:"
+        android:textAlignment="textStart" />
+
+    <TextView
+        android:id="@+id/directionsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ingredientsView"
+        android:layout_marginTop="25dp"
+        android:text="       Directions:" />
+
 </RelativeLayout>

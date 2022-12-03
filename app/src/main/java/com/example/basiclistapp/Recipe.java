@@ -24,12 +24,49 @@ public class Recipe {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public String getIngredients() {
+        String ret = "       Ingredients:";
+        for (String ing : this.ingredients) {
+            ret += "\n    >" + ing;
+        }
+        return ret;
+    }
+
+    public String getDirections() {
+        String ret = "       Directions:";
+        for (String ing : this.directions) {
+            ret += "\n    >" + ing;
+        }
+        return ret;
+    }
+
+    public String[] getIngredientsArray() {
+        String[] ret = new String[ingredients.size()];
+        for (int i = 0; i < ingredients.size(); i++) {
+            ret[i] = ingredients.get(i);
+        }
+        return ret;
+    }
+
+
+    public String[] getDirectionsArray() {
+        String[] ret = new String[directions.size()];
+        for (int i = 0; i < directions.size(); i++) {
+            ret[i] = directions.get(i);
+        }
+        return ret;
+    }
+
+    public String[] getTagsArray() {
+        String[] ret = new String[tags.size()];
+        for (int i = 0; i < tags.size(); i++) {
+            ret[i] = tags.get(i);
+        }
+        return ret;
     }
 
     public void setName(String name) {

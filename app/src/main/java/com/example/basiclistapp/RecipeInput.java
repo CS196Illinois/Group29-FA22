@@ -24,24 +24,23 @@ public class RecipeInput extends AppCompatActivity {
     Button submitButton;
     BottomNavigationView nav;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
         getSupportActionBar().setTitle("New Recipe");
 
-        nav = findViewById(R.id.nav2);
+        nav = findViewById(R.id.nav);
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId()) {
-                    case R.id.search:
-                        Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent1);
-
-                    default:
+                if (item.getItemId() == R.id.search) {
+                    Intent goToMain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(goToMain);
+                }
+                else if (item.getItemId() == R.id.favorites) {
+                    Intent goToFavorites = new Intent(getApplicationContext(), Favorites.class);
+                    startActivity(goToFavorites);
                 }
 
                 return true;
@@ -70,6 +69,8 @@ public class RecipeInput extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        super.onCreate(savedInstanceState);
 
     }
 }
