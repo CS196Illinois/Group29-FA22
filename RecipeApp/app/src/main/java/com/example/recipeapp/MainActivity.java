@@ -1,26 +1,28 @@
 package com.example.recipeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 
 import android.content.Intent;
-import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static ArrayList<com.example.recipeapp.Recipe> recipeList = new ArrayList<com.example.recipeapp.Recipe>();
-    private static ArrayList<com.example.recipeapp.Recipe> recipeHistory = new ArrayList<>();
     private ListView listView;
 
+    BottomNavigationView nav;
 
     public static ArrayList<com.example.recipeapp.Recipe> getRecipeList() {
         return recipeList;
@@ -30,13 +32,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("My Recipes");
-        initSearchWidgets();
+        getSupportActionBar().setTitle("Search Recipes");
+        nav = findViewById(R.id.nav);
+        nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        setUpData();
+                int newItem = item.getItemId();
+                if (newItem == R.id.add) {
+                    Intent intent1 = new Intent(getApplicationContext(), RecipeInput.class);
+                    startActivity(intent1);
+                } else if (newItem == R.id.history) {
+                    Intent intent2 = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent2);
+                }
+
+                return true;
+            }
+        });
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setUpData(
+                    extras.getString("name"),
+                    extras.getStringArray("ingredients"),
+                    extras.getStringArray("tags"),
+                    extras.getStringArray("directions")
+            );
+        }
+        initSearchWidgets();
         setUpList();
         setUpOnclickListener();
-
     }
 
     private void initSearchWidgets() {
@@ -67,25 +92,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setUpData() {
-        com.example.recipeapp.Recipe chicken_tikka_masala = new com.example.recipeapp.Recipe("0", "Chicken Tikka Masala");
-        recipeList.add(chicken_tikka_masala);
-        chicken_tikka_masala.addTag("Indian");
-        chicken_tikka_masala.addTag("Spicy");
-
-        com.example.recipeapp.Recipe clam_chowder = new com.example.recipeapp.Recipe("1", "Clam Chowder");
-        recipeList.add(clam_chowder);
-
-        com.example.recipeapp.Recipe split_pea_soup = new com.example.recipeapp.Recipe("2", "Split Pea Soup");
-        recipeList.add(split_pea_soup);
-
-        com.example.recipeapp.Recipe hamburgers = new com.example.recipeapp.Recipe("3", "Hamburgers");
-        recipeList.add(hamburgers);
-
-        com.example.recipeapp.Recipe german_chocolate_cake = new com.example.recipeapp.Recipe("4", "German Chocolate Cake");
-        recipeList.add(german_chocolate_cake);
-        german_chocolate_cake.addTag("Dessert");
-        german_chocolate_cake.addTag("Cake");
+    public void setUpData(String name, String[] ingredients, String[] tags, String[] directions) {
+        Recipe newRecipe = new Recipe(name, ingredients, tags, directions);
+        recipeList.add(newRecipe);
     }
 
     public void setUpOnclickListener() {
@@ -93,10 +102,11 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                com.example.recipeapp.Recipe selectedRecipe = (com.example.recipeapp.Recipe) (listView.getItemAtPosition(position));
-                Intent showDetail = new Intent(getApplicationContext(), com.example.recipeapp.DetailActivity.class);
+                Recipe selectedRecipe = (Recipe) (listView.getItemAtPosition(position));
+                //System.out.println(selectedRecipe.getName());
+                Intent showDetail = new Intent(getApplicationContext(), DetailActivity.class);
                 showDetail.putExtra("id", selectedRecipe.getId());
+                //System.out.println("Here");
                 startActivity(showDetail);
             }
         });
@@ -105,17 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUpList() {
         listView = (ListView) findViewById(R.id.recipesListView);
-
-        com.example.recipeapp.RecipeAdapter adapter = new com.example.recipeapp.RecipeAdapter(getApplicationContext(), 0, recipeList);
+        RecipeAdapter adapter = new RecipeAdapter(getApplicationContext(), 0, recipeList);
         listView.setAdapter(adapter);
-    }
-
-    public static void addHistory(Recipe r) {
-        recipeHistory.add(r);
-    }
-
-    public static void removeHistory(Recipe r) {
-        recipeHistory.remove(r);
     }
 
 }

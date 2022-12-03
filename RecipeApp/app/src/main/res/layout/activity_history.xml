@@ -5,20 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recipeListSearchView"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search"></SearchView>
+    tools:context=".HistoryActivity">
 
     <ListView
-        android:id="@+id/recipesListView"
+        android:id="@+id/historyListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/recipeListSearchView"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="56dp" />
 
@@ -30,5 +22,6 @@
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_bar"/>
+
 
 </RelativeLayout>

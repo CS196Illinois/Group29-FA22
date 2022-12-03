@@ -22,23 +22,28 @@ public class DetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Recipe View");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSelectedShape();
+        getSelectedRecipe();
         setValues();
 
         ch = (CheckBox) findViewById(R.id.recipe_made);
+
+        if (selectedRecipe.getRecipeMade()) {
+            ch.setChecked(true);
+        }
+
         ch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
                 if (checked){
                     selectedRecipe.setRecipeMade(true);
-                    MainActivity.addHistory(selectedRecipe);
-                    //System.out.println("checked");
+                    HistoryActivity.addHistory(selectedRecipe);
+                    System.out.println("checked");
                 }
                 else{
                     selectedRecipe.setRecipeMade(false);
-                    MainActivity.removeHistory(selectedRecipe);
-                    //System.out.println("unchecked");
+                    HistoryActivity.removeHistory(selectedRecipe);
+                    System.out.println("unchecked");
                 }
             }
         });
@@ -46,11 +51,12 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+
         onBackPressed();
         return true;
     }
 
-    public void getSelectedShape() {
+    public void getSelectedRecipe() {
         Intent previousIntent = getIntent();
         String parsedStringID = previousIntent.getStringExtra("id");
         selectedRecipe = MainActivity.getRecipeList().get(Integer.valueOf(parsedStringID));

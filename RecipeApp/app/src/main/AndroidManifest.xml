@@ -19,6 +19,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".RecipeInput"
+            android:exported="true">
+        </activity>
+        <activity android:name=".HistoryActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

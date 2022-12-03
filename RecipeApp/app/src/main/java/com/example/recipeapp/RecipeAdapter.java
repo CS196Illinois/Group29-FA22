@@ -7,20 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.example.recipeapp.Recipe;
 
 import java.util.List;
 
-public class RecipeAdapter extends ArrayAdapter<com.example.recipeapp.Recipe> {
+public class RecipeAdapter extends ArrayAdapter<Recipe> {
 
-    public RecipeAdapter(Context context, int resource, List<com.example.recipeapp.Recipe> recipeList) {
+    public RecipeAdapter(Context context, int resource, List<Recipe> recipeList) {
         super(context, resource, recipeList);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        com.example.recipeapp.Recipe recipe = getItem(position);
+        Recipe recipe = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.recipe_cell, parent, false);
