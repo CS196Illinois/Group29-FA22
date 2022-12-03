@@ -8,3 +8,4 @@ Team Members: mreeve2, shsing2
 Project Manager: yse2
 
 Project Description: Recipes App where users can store and record multiple recpies
+
