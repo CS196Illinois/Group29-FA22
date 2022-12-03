@@ -28,7 +28,21 @@ public class Recipe {
         return name;
     }
 
-    public ArrayList<String> getIngredients() { return ingredients; }
+    public String getIngredients() {
+        String ret = "       Ingredients:";
+        for (String ing : this.ingredients) {
+            ret += "\n    >" + ing;
+        }
+        return ret;
+    }
+
+    public String getDirections() {
+        String ret = "       Directions:";
+        for (String ing : this.directions) {
+            ret += "\n    >" + ing;
+        }
+        return ret;
+    }
 
     public String[] getIngredientsArray() {
         String[] ret = new String[ingredients.size()];
@@ -38,9 +52,6 @@ public class Recipe {
         return ret;
     }
 
-    public ArrayList<String> getDirections() {
-        return directions;
-    }
 
     public String[] getDirectionsArray() {
         String[] ret = new String[directions.size()];

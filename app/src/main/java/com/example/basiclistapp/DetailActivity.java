@@ -58,8 +58,13 @@ public class DetailActivity extends AppCompatActivity {
     public void setValues() {
         TextView tv1 = (TextView) findViewById(R.id.recipeName);
         TextView tv2 = (TextView) findViewById(R.id.recipeTags);
+        TextView tv3 = (TextView) findViewById(R.id.ingredientsView);
+        TextView tv4 = (TextView) findViewById(R.id.directionsView);
+
         tv1.setText(selectedRecipe.getName());
         tv2.setText((selectedRecipe.getTags()));
+        tv3.setText((selectedRecipe.getIngredients()));
+        tv4.setText(selectedRecipe.getDirections());
     }
 
 }
